@@ -1,5 +1,5 @@
 {
-  "name": "@project-sunbird/sunbird-epub-player-v9",
+  "name": "@jeraldj/sunbird-epub-player-v9",
   "version": "8.0.0",
   "peerDependencies": {
     "@angular/common": "17.3.7",
