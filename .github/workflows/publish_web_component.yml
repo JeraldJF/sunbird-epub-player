@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.15.0'
+          node-version: '22.21.1'
 
       - name: Restore node_modules cache
         id: cache
@@ -43,4 +43,4 @@ jobs:
         run: |
           npm run build-web-component && npm pack ./web-component
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          npm publish project-sunbird-sunbird-epub-player-web-component-* --access public
+          npm publish jeraldj-sunbird-epub-player-web-component-* --access public

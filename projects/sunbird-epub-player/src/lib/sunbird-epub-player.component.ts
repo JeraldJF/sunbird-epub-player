@@ -12,7 +12,8 @@ import { UtilService } from './services/utilService/util.service';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
-  styleUrls: ['./sunbird-epub-player.component.scss']
+  styleUrls: ['./sunbird-epub-player.component.scss'],
+  standalone: false
 })
 export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;

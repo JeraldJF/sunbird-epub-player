@@ -11,7 +11,8 @@ const MAX_TIME_TO_LOAD_SPINE = 5 * 60 * 1000; // 5 minutes
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
-  styleUrls: ['./epub-viewer.component.css']
+  styleUrls: ['./epub-viewer.component.css'],
+  standalone: false
 })
 export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   eBook: any;
