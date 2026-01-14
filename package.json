@@ -74,5 +74,8 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.39.1",
     "typescript": "~5.7.2"
+  },
+  "overrides": {
+    "form-data": "2.5.4"
   }
 }
