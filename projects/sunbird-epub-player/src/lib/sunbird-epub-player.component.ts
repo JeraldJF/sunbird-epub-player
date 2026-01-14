@@ -9,10 +9,11 @@ import { UtilService } from './services/utilService/util.service';
 
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector,@angular-eslint/prefer-standalone
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
-  styleUrls: ['./sunbird-epub-player.component.scss']
+  styleUrls: ['./sunbird-epub-player.component.scss'],
+  standalone: false
 })
 export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;
