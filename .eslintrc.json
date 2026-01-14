@@ -46,6 +46,41 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "projects/sunbird-epub-player/**/*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/sunbird-epub-player/tsconfig.lib.json",
+          "projects/sunbird-epub-player/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "projects/epub-player-wc/**/*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/epub-player-wc/tsconfig.app.json",
+          "projects/epub-player-wc/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {}
     }
   ]
 }
