@@ -18,32 +18,7 @@ const build = async () => {
   let packageJsonContent = null;
   if (await fs.pathExists(packageJsonSource)) {
     packageJsonContent = await fs.readJson(packageJsonSource);
-  } else {
-    // Default package.json content if none exists
-    packageJsonContent = {
-      "name": "@project-sunbird/sunbird-epub-player-web-component",
-      "version": "1.5.0",
-      "description": "The web component package for the sunbird epub player",
-      "main": "assets/epub-player/sunbird-epub-player.js",
-      "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-      },
-      "homepage": "https://github.com/Sunbird-Knowlg/sunbird-epub-player/blob/release-5.5.0/README.md",
-      "repository": {
-        "type": "git",
-        "url": "https://github.com/Sunbird-Knowlg/sunbird-epub-player.git"
-      },
-      "keywords": [
-        "sunbird",
-        "epub",
-        "player",
-        "web-component"
-      ],
-      "author": "sunbird",
-      "license": "MIT"
-    };
   }
-
   // Clean and create directory
   await fs.remove("web-component");
   await fs.ensureDir(outputDir);
