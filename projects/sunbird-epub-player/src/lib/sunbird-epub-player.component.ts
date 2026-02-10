@@ -13,7 +13,7 @@ import { UtilService } from './services/utilService/util.service';
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss'],
-  standalone: false
+  standalone: true
 })
 export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;
