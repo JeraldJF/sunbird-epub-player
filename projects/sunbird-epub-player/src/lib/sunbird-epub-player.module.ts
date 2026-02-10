@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [EpubPlayerComponent, EpubViewerComponent],
+  declarations: [],
   imports: [
     CommonModule,
     SunbirdPlayerSdkModule,
-    HttpClientModule
+    HttpClientModule,
+    EpubPlayerComponent,
+    EpubViewerComponent
   ],
   providers:[{ provide: PLAYER_CONFIG, useValue: { contentCompatibilityLevel: 5 } }],
   exports: [EpubPlayerComponent]
