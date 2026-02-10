@@ -8,12 +8,17 @@ import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-
 import { UtilService } from './services/utilService/util.service';
 
 
+import { CommonModule } from '@angular/common';
+import { SunbirdPlayerSdkModule } from '@project-sunbird/sunbird-player-sdk-v9';
+import { EpubViewerComponent } from './epub-viewer/epub-viewer.component';
+
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector,@angular-eslint/prefer-standalone
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss'],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule, SunbirdPlayerSdkModule, EpubViewerComponent]
 })
 export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;
