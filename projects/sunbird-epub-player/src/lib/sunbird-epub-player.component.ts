@@ -208,6 +208,11 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   }
 
   exitContent(event) {
+    const EndEvent = {
+      type: this.fromConst.END,
+      data: { index: this.currentPageIndex }
+    };
+    this.viwerService.raiseEndEvent(EndEvent);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
   }
 

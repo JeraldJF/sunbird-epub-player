@@ -186,6 +186,9 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   ngOnDestroy() {
+    try {
+      this.rendition?.destroy();
+    } catch {}
     this.eBook?.destroy();
   }
 }
