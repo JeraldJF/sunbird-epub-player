@@ -1,5 +1,7 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input,
-  EventEmitter, Output, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
+import {
+  AfterViewInit, ViewChild, Component, ElementRef, Input,
+  EventEmitter, Output, OnInit, OnDestroy, SimpleChanges, OnChanges
+} from '@angular/core';
 import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
@@ -8,10 +10,10 @@ import { UtilService } from '../services/utilService/util.service';
 
 const MAX_TIME_TO_LOAD_SPINE = 5 * 60 * 1000; // 5 minutes
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
-  styleUrls: ['./epub-viewer.component.css']
+  styleUrls: ['./epub-viewer.component.css'],
+  standalone: true
 })
 export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   eBook: any;
@@ -186,6 +188,11 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   ngOnDestroy() {
+    try {
+      this.rendition?.destroy();
+    } catch (error) {
+      console.error('Failed to destroy EPUB rendition', error);
+    }
     this.eBook?.destroy();
   }
 }

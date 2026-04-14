@@ -8,15 +8,14 @@ import { EpubViewerComponent } from '../../../sunbird-epub-player/src/lib/epub-v
 import { EpubPlayerComponent } from '../../../sunbird-epub-player/src/lib/sunbird-epub-player.component';
 
 @NgModule({
-    declarations: [
-        EpubPlayerComponent,
-        EpubViewerComponent
-    ],
+    declarations: [],
     imports: [
         BrowserModule,
         CommonModule,
         SunbirdPlayerSdkModule,
-        HttpClientModule
+        HttpClientModule,
+        EpubPlayerComponent,
+        EpubViewerComponent
     ],
     providers: [{ provide: PLAYER_CONFIG, useValue: { contentCompatibilityLevel: 5 } }]
 })

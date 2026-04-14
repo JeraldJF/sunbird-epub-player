@@ -1,5 +1,7 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener,
-  OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  EventEmitter, Component, Output, Input, OnInit, HostListener,
+  OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2, OnChanges, SimpleChanges
+} from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
@@ -8,11 +10,17 @@ import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-
 import { UtilService } from './services/utilService/util.service';
 
 
+import { CommonModule } from '@angular/common';
+import { SunbirdPlayerSdkModule } from '@project-sunbird/sunbird-player-sdk-v9';
+import { EpubViewerComponent } from './epub-viewer/epub-viewer.component';
+
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector,@angular-eslint/prefer-standalone
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
-  styleUrls: ['./sunbird-epub-player.component.scss']
+  styleUrls: ['./sunbird-epub-player.component.scss'],
+  standalone: true,
+  imports: [CommonModule, SunbirdPlayerSdkModule, EpubViewerComponent]
 })
 export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;
@@ -66,37 +74,37 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   async ngOnInit() {
     this.isInitialized = true;
     if (this.playerConfig) {
-    if (typeof this.playerConfig === 'string') {
-      try {
-        this.playerConfig = JSON.parse(this.playerConfig);
-      } catch (error) {
-        console.error('Invalid playerConfig: ', error);
+      if (typeof this.playerConfig === 'string') {
+        try {
+          this.playerConfig = JSON.parse(this.playerConfig);
+        } catch (error) {
+          console.error('Invalid playerConfig: ', error);
+        }
       }
-    }
-    // initializing services
-    this.viwerService.initialize(this.playerConfig);
-    this.epubPlayerService.initialize(this.playerConfig);
-    this.traceId = this.playerConfig?.config?.traceId;
-    // checks online error while loading epub
-    if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
-      // eslint-disable-next-line max-len
-      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex, errorMessage.internetConnectivity, this.traceId, new Error(errorMessage.internetConnectivity));
-    }
-
-    // checks content compatibility error
-    const contentCompabilityLevel = this.playerConfig?.metadata?.compatibilityLevel;
-    if (contentCompabilityLevel) {
-      const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
-      if (!checkContentCompatible?.isCompitable) {
+      // initializing services
+      this.viwerService.initialize(this.playerConfig);
+      this.epubPlayerService.initialize(this.playerConfig);
+      this.traceId = this.playerConfig?.config?.traceId;
+      // checks online error while loading epub
+      if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
         // eslint-disable-next-line max-len
-        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible.error);
+        this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex, errorMessage.internetConnectivity, this.traceId, new Error(errorMessage.internetConnectivity));
       }
-    }
 
-    this.showEpubViewer = true;
-    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
-    this.getEpubLoadingProgress();
-  }
+      // checks content compatibility error
+      const contentCompabilityLevel = this.playerConfig?.metadata?.compatibilityLevel;
+      if (contentCompabilityLevel) {
+        const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
+        if (!checkContentCompatible?.isCompitable) {
+          // eslint-disable-next-line max-len
+          this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible.error);
+        }
+      }
+
+      this.showEpubViewer = true;
+      this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
+      this.getEpubLoadingProgress();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -202,6 +210,11 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   }
 
   exitContent(event) {
+    const endEvent = {
+      type: this.fromConst.END,
+      data: { index: this.currentPageIndex }
+    };
+    this.viwerService.raiseEndEvent(endEvent);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
   }
 

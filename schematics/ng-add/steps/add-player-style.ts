@@ -48,7 +48,7 @@ function addPlayerToAngularJson(
   addStyleToTarget(targetOptions, SB_STYLES);
   addAssetsToTarget(targetOptions, SB_ASSETS);
   addScriptToTarget(targetOptions, SB_SCRIPTS);
-  return updateWorkspace(workspace);
+  return updateWorkspace(workspace) as unknown as Rule;
 }
 
 function addStyleToTarget(targetOptions: any, assetPaths: Array<any>) {
